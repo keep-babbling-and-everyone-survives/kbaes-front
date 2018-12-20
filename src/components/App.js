@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { Router, Route, browserHistory } from 'react-router';
-import { history } from '../helpers/history';
+import { Router, Route } from 'react-router';
+import history  from '../helpers/History';
+
 import '../style/App.css';
-import Homepage from './homepage.js';
+
+import { AUTH_USER } from '../action/Types';
+// import Homepage from './Homepage.js';
+import User from './User.js';
+
 
 
 class App extends Component {
@@ -10,9 +15,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Router history={history}>
-            <Route path="/" component={Homepage}/>
-          </Router>
+        <Router history={history}>
+        <Route path="/" component={User}/>
+        </Router>
         </header>
       </div>
     );

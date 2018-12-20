@@ -1,14 +1,23 @@
+
+
+/************* APP ***************/
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
+  margin-bottom: 20px;
 }
 
+/* .Logo{
+  background-image: url(../raspberryred.svg);
+}
+ */
+
 .App-header {
-  background-color: #282c34;
+  background-color: #2C313A;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,7 +26,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+/*
 .App-link {
   color: #61dafb;
 }
@@ -29,4 +38,27 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/************* USER SIGN IN ***************/
+
+.User-signin{
+  display: flex;
+  flex-direction: column;
+}
+
+/* .User-email {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  height: 2.5vh;
+}
+
+.User-password {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 2.5vh;
+} */
+
+.User-button{
+
 }
