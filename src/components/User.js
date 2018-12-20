@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import logo from '../raspberryred.svg';
-
+import TokenAuth from '../action/Action';
 
 import Newgame from './Newgame';
 
@@ -57,5 +57,10 @@ class User extends Component{
     }
   }
 }
+
+// function mapStateToProps(state){
+//   const {TokenAuth} = state;
+// }
+
 
 export default User;
