@@ -20,12 +20,18 @@ class User extends Component{
     const API_URL = 'http://192.168.1.192';
 
     axios.post(`${API_URL}/oauth/token`,
-      'grant_type=client_credentials&client_id=3&client_secret=ST8K8Ji3lzSCHRmPkTtemvFIS77J4kTHmh2RLiiN&scope=web-scope',{
+      'grant_type=password&client_id=2&client_secret=IhF7xsFlyQDFqucpZpxjcgelza8pPkCZrMRJHl3Y&scope=*&username=admin@admin.com&password=000000',{
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
     }).then((res)=>{
+      console.log(res);
+      this.setToken(res.data.access_token);
+      console.log("RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+      console.log(localStorage);
+      return Promise.resolve(res);
+
     }).catch((error)=>{
       alert("Error in API call ! ! ! ! !")
     });
@@ -38,8 +44,15 @@ class User extends Component{
     })
   }
 
+  setToken = id_token => {
+    localStorage.setItem("id_token", id_token);
+  }
+
+
   render(){
     console.log(this.state);
+    console.log("localStorage");
+    console.log(localStorage);
     if(this.state.NewGame === false) {
         return (
           <div>
