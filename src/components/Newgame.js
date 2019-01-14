@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Socketio from 'socket.io-client';
 import Echo from 'laravel-echo';
+
+//import material UI
 import Button from '@material-ui/core/Button';
 
 //import component
@@ -61,7 +63,7 @@ class Newgame extends Component {
             localStorage.setItem("channel_id", channel_id);
     }
 
-    handleClick(e){
+    handleClick = (e) => {
             console.log("You've cliked !!");
             //connect to the private
             window.Echo.private(localStorage.channel_id)

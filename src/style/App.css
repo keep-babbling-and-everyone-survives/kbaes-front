@@ -11,11 +11,6 @@
   margin-bottom: 20px;
 }
 
-/* .Logo{
-  background-image: url(../raspberryred.svg);
-}
- */
-
 .App-header {
   background-color: #2C313A;
   min-height: 100vh;
@@ -26,39 +21,27 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-/*
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
-/************* USER SIGN IN ***************/
+/************* USER PAGE ***************/
 
 .User-signin{
   display: flex;
   flex-direction: column;
 }
 
-/* .User-email {
-  margin-top: 25px;
-  margin-bottom: 10px;
-  height: 2.5vh;
+.User-button{
+  background-color: yellow;
 }
 
-.User-password {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  height: 2.5vh;
-} */
+/************* RULES PAGE ***************/
 
-.User-button{
+ul > li {
+  /* text-decoration: none; */
+  list-style:none;
+}
 
+.solution-li {
+  margin: 12px;
+  padding: 5px;
 }

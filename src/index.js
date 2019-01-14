@@ -14,11 +14,15 @@ import AllReducers from './reducers/Allreducers.js';
 /////////   MATERIAL UI   /////////
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
+import{ MuiThemeProvider }from '@material-ui/core/styles';
+
 
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
+    primary: {
+      main: '#673ab7'
+    },
     secondary: {
       main: '#ec407a',
     },
@@ -32,7 +36,9 @@ const store = createStoreWithMiddleware(AllReducers);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </ MuiThemeProvider>
   </Provider>,
   document.getElementById('root'));
 
