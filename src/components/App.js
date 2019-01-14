@@ -5,10 +5,7 @@ import history  from '../helpers/History';
 
 import '../style/App.css';
 
-//import material UI
-import{ MuiThemeProvider, createMuiTheme }from '@material-ui/core/styles';
-
-import { AUTH_USER } from '../action/Types';
+// import { AUTH_USER } from '../action/Types';
 
 import User from './User.js';
 import Rules from './Rules.js';

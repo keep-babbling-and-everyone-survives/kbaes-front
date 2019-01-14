@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 //import component
 import Rules from './Rules';
-import User from './User';
+
 
 class Newgame extends Component {
     constructor(props){

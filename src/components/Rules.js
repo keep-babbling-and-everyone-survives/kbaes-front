@@ -7,23 +7,34 @@ import Echo from 'laravel-echo';
 //import material UI
 import Button from '@material-ui/core/Button';
 
-//improt component
-import NewGame from './Newgame';
-import User from './User';
+//import component
+// import NewGame from './Newgame';
+// import User from './User';
 
 
 class Rules extends Component {
     constructor(props) {
         super(props);
         this.state ={
+
         };
     }
     componentDidMount() {
-        
+        const API_URL = 'http://192.168.1.192';
+        axios.get(`${API_URL}/api/gameBoardModule/57`
+        ).then((res)=>{
+            console.log("RES IN RULES PAGE !! ");
+            console.log(res);
+            this.setState({rulesets: res.data})
+        }).catch((error)=>{
+            console.log("Error in API call (Rules) ! ! !");
+            console.log(error);
+        })
     }
 
-    render(){
 
+    render(){
+        console.log(this.state.rulesets);
         return(
             <div>
                 <ul>
