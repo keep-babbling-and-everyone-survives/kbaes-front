@@ -82,8 +82,8 @@ class Newgame extends Component {
         if(this.state.Rules === false) {
             return(
                     <div>
-                        <p> Really nigga ??</p>
-                        <Button size="medium" variant="contained" className="User-button" color="primary" onClick={this.handleClick}> Click </Button>
+                        <p> Choose wisely ...</p>
+                        <Button size="medium" variant="contained" className="User-button" color="primary" onClick={this.handleClick}> Ready now ? </Button>
                     </div>
             );
         } else {

@@ -1,6 +1,4 @@
 import axios from 'axios';
-import history from '../helpers/History';
-
 
 export const action = {
   TokenAuth,

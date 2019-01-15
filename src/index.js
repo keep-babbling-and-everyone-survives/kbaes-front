@@ -13,7 +13,6 @@ import AllReducers from './reducers/Allreducers.js';
 
 /////////   MATERIAL UI   /////////
 import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
 import{ MuiThemeProvider }from '@material-ui/core/styles';
 
 
