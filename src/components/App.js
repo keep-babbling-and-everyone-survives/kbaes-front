@@ -5,10 +5,8 @@ import history  from '../helpers/History';
 
 import '../style/App.css';
 
-// import { AUTH_USER } from '../action/Types';
-
 import User from './User.js';
-import Rules from './Rules.js';
+//import Rules from './Rules.js';
 
 
 class App extends Component {
