@@ -1,0 +1,8 @@
+{
+    "APP_URL": "192.168.33.108",
+    "SOCKETIO_PORT": "6001",
+    "OAUTH_CLIENT_ID": "",
+    "OAUTH_CLIENT_SECRET": "",
+    "ADMIN_USER": "admin@admin.com",
+    "ADMIN_PASSWORD": "000000"
+}

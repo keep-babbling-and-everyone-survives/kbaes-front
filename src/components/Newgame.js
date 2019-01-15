@@ -10,18 +10,21 @@ import Button from '@material-ui/core/Button';
 //import component
 import Rules from './Rules';
 
+var Config = require("../app.conf.json");
+
 
 class Newgame extends Component {
-    constructor(props){
+    constructor(props) {
             super(props);
-            this.state ={
+        this.state = {
                     NewGame: false,
-                    Rules: false
+            Rules: false,
+            GameId: 0
             };
             window.Echo = new Echo({
                     broadcaster: 'socket.io',
 
-                    host: 'http://192.168.1.192:6001',
+            host: `${Config.API_URL}:${Config.SOCKETIO_PORT}`,
                     client: Socketio,
                     transports: ['websocket', 'polling', 'flashsocket'], //fix CORS issue
                     auth: {
@@ -30,29 +33,14 @@ class Newgame extends Component {
                         }
                     }
             });
-            this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount(){
-            const API_URL = 'http://192.168.1.192';
-            // const socket = socketIOclient(this.state);
+    componentDidMount() {
+        const API_URL = Config.API_URL;
+        const body = { "game_options": {} };
+        const reqConfig = { headers: { "Accept": "application/json", "Authorization": 'Bearer ' + localStorage.id_token } };
 
-            axios.post(`${API_URL}/api/game/start`,{
-                    "game_options": {}
-                    },
-                    {
-                    headers: {
-                            Accept: "application/json",
-                            "Authorization": 'Bearer ' + localStorage.id_token,
-                    },
-            }).then((res)=>{
-                    this.setChannel('game.' + res.data.channel_id); //have to store channel_id
-                    console.log(localStorage);
-                    console.log("setChannel done !");
-                    window.Echo.private('game.' + res.data.channel_id ).listen('GameStarted', (e)=>{
-                            console.log(e);
-                    })
-            }).catch((error)=>{
+        axios.post(`${API_URL}/api/game/start`, body, reqConfig)
                     console.log("Error in API get call (Newgame)! ! ! ! !");
                     console.log(error);
             });

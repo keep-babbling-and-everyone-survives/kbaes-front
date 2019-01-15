@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 // import NewGame from './Newgame';
 // import User from './User';
 
+var Config = require("../app.conf.json");
+
 
 class Rules extends Component {
     constructor(props) {
@@ -24,20 +26,17 @@ class Rules extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount() {
-        const API_URL = 'http://192.168.1.192';
-
-        axios.get(`${API_URL}/api/gameBoardModule/57`
-        ).then((res)=>{
-            console.log("RES IN RULES PAGE !! ");
-            console.log(res);
-            this.setState({
-                rulesets: res.data.rule_sets,
-                gotdata: true
-            });
-        }).catch((error)=>{
-            console.log("Error in API call (Rules) ! ! !");
-            console.log(error);
-        })
+        const API_URL = Config.API_URL;
+        const gameId = localStorage.game_id
+        axios.get(`${API_URL}/api/gameBoardModule/${gameId}`)
+            .then((res) => {
+                console.log("RES IN RULES PAGE !! ");
+                console.log(res);
+                this.setState({ rulesets: res.data })
+            }).catch((error) => {
+                console.log("Error in API call (Rules) ! ! !");
+                console.log(error);
+            })
     }
 
     handleClick = (button) => {

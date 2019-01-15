@@ -18,7 +18,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         <Router history={history}>
-        <Route path="/" component={Rules}/>
+        <Route path="/" component={User}/>
         </Router>
         </header>
       </div>
