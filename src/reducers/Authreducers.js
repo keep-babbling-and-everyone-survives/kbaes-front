@@ -6,6 +6,7 @@ import { AUTH_USER,
 const INITIAL_STATE = { error: '', message: '', content: '', authenticated: false}
 
 export default function (state = INITIAL_STATE, action) {
+  // eslint-disable-next-line
   switch(action.type) {
     case AUTH_USER:
       return {

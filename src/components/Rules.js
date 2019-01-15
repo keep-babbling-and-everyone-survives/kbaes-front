@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import Tracker from './Tracker';
 // import logo from '../raspberryred.svg';
 import axios from 'axios';
-import Socketio from 'socket.io-client';
-import Echo from 'laravel-echo';
 
 //import material UI
 import Button from '@material-ui/core/Button';
@@ -17,7 +16,7 @@ var Config = require("../app.conf.json");
 class Rules extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             buttonPressed: 0,
             rulesets: '',
             gotdata: false,
@@ -30,9 +29,7 @@ class Rules extends Component {
         const gameId = localStorage.game_id
         axios.get(`${API_URL}/api/gameBoardModule/${gameId}`)
             .then((res) => {
-                console.log("RES IN RULES PAGE !! ");
-                console.log(res);
-                this.setState({ rulesets: res.data })
+                this.setState({ rulesets: res.data, gotdata: true })
             }).catch((error) => {
                 console.log("Error in API call (Rules) ! ! !");
                 console.log(error);
@@ -43,7 +40,6 @@ class Rules extends Component {
         this.setState({
             open: true
         });
-        console.log("state in handleClick");
     }
 
     handleOpen = (button) => {
@@ -58,44 +54,20 @@ class Rules extends Component {
         });
     };
 
-    render(){
-        //console.log(this.state.rulesets);
-
-    // outerArray : this.state.rulesets
-    //outerElement : id
-    // innerElement : name
-    // innerArray: modules
-    //
-    // if (this.state.buttonPressed === 1){
-    //     <div>
-    //     <ul>
-    //     {this.state.rulesets.map(id => {
-    //         return id.modules.map(name => (
-    //             <li>{name}</li>
-    //         ))
-    //     })}
-    //     </ul>
-    //     </div>
-    //
-    // }else {
-    //     return(
-    //         console.log("err")
-    //     )
-    // }
-        console.log(this.state.rulesets);
+    render() {
         let rulesets = []
-        if (this.state.gotdata){
-            for (let rs of this.state.rulesets){
+        if (this.state.gotdata) {
+            for (let rs of this.state.rulesets) {
                 rulesets.push(
                     <li key={rs.id} className="solution-li">
                         <Button
-                        value={rs.id}
-                        size="medium"
-                        variant="contained"
-                        className="User-button"
-                        color="primary"
-                        onClick={this.handleOpen}>
-                          {rs.combination}
+                            value={rs.id}
+                            size="medium"
+                            variant="contained"
+                            className="User-button"
+                            color="primary"
+                            onClick={this.handleOpen}>
+                            {rs.combination}
                         </Button>
                     </li>
 
@@ -103,17 +75,17 @@ class Rules extends Component {
             }
         }
 
-
-        return(
+        return (
             <div>
+                <Tracker />
                 <ul>
-                {rulesets}
+                    {rulesets}
                 </ul>
-                    <div className="modal-solution"
+                <div className="modal-solution"
                     open={this.state.open}
                     onClose={this.handleClose}>
                     <p className="modal-text"> SOLUTION</p>
-                    </div>
+                </div>
             </div>
         )
     }
