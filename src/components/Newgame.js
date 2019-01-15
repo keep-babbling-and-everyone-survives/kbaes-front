@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 // import logo from '../raspberryred.svg';
 import axios from 'axios';
-import Socketio from 'socket.io-client';
-import Echo from 'laravel-echo';
-
-//import material UI
-import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //import component
 import Rules from './Rules';
@@ -21,23 +17,15 @@ class Newgame extends Component {
             Rules: false,
             GameId: 0
         };
-        window.Echo = new Echo({
-            broadcaster: 'socket.io',
-
-            host: `${Config.API_URL}:${Config.SOCKETIO_PORT}`,
-            client: Socketio,
-            transports: ['websocket', 'polling', 'flashsocket'], //fix CORS issue
-            auth: {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.id_token,
-                }
-            }
-        });
     }
 
     componentDidMount() {
         const API_URL = Config.API_URL;
-        const body = { "game_options": {} };
+        const body = { "game_options": {
+            "time": 60,
+            "modules": 3,
+            "errors": 1,
+        } };
         const reqConfig = { headers: { "Accept": "application/json", "Authorization": 'Bearer ' + localStorage.id_token } };
 
         axios.post(`${API_URL}/api/game/start`, body, reqConfig)
@@ -50,18 +38,28 @@ class Newgame extends Component {
 
     initGame = (res) => {
         this.setGameId(res.data.channel_id); //have to store channel_id
-        console.log(localStorage);
-        console.log("Listening to channel : game." + localStorage.channel_id);
-        window.Echo.private('game.' + localStorage.game_id)
-            .listen('Website\\GameCreatedSuccess', (e) => {
-                // React Logic here
-                //Game's info (number of ruleset, and for each ruleset true or false)
-                console.log(e);
-                console.log(`Got confirmation for game`);
-                this.setState({
-                    Rules: true
-                })
+        console.log("Listening to channel : game." + localStorage.game_id);
+        const gameStatus = res.data.status;
+        if (gameStatus === "running") {
+            this.setState({ Rules: true });
+        }
+        if (window.Echo !== undefined) {
+            window.Echo.private('game.' + localStorage.game_id)
+                .listen('Website\\GameCreatedSuccess', this.confirmGame);
+        } else {
+            window.Connection.then(() => {
+                window.Echo.private('game.' + localStorage.game_id)
+                .listen('Website\\GameCreatedSuccess', this.confirmGame);
             });
+        }
+    }
+
+    confirmGame = e => {
+        console.log(e);
+        console.log(`Got confirmation for game ${localStorage.game_id}`);
+        this.setState({
+            Rules: true
+        })
     }
 
     //Store channel_id
@@ -73,9 +71,7 @@ class Newgame extends Component {
         if (this.state.Rules === false) {
             return (
                 <div>
-                    <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                        <circle class="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
-                    </svg>
+                    <CircularProgress />
                 </div>
             );
         } else {
