@@ -6,64 +6,73 @@ import logo from '../raspberryred.svg';
 //import component
 // import TokenAuth from '../action/Action';
 import Newgame from './Newgame';
+var Config = require("../app.conf.json");
 
-class User extends Component{
+class User extends Component {
 
-  constructor(props){
-          super(props);
-          this.state ={
-                NewGame: false,
-          };
-          this.handleClick = this.handleClick.bind(this);
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            NewGame: false,
+        };
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-  componentDidMount(){
-          const API_URL = 'http://192.168.1.192';
+    componentDidMount() {
+        const API_URL = Config.API_URL;
+        const params = new URLSearchParams();
+        params.append("grant_type", "password");
+        params.append("client_id", Config.OAUTH_CLIENT_ID);
+        params.append("client_secret", Config.OAUTH_CLIENT_SECRET);
+        params.append("scope", "*");
+        params.append("username", Config.ADMIN_USER);
+        params.append("password", Config.ADMIN_PASSWORD);
 
-          axios.post(`${API_URL}/oauth/token`,
-                'grant_type=password&client_id=1&client_secret=o7aYR3hvkuYFlpR6YEQWtmKdeKZc0yBy9mXi8dLO&scope=*&username=admin@admin.com&password=000000',{
-                headers: {
-                      Accept: "application/json",
-                      "Content-Type": "application/x-www-form-urlencoded"
-                },
-          }).then((res)=>{
+        const reqConf = {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        };
+
+        axios.post(`${API_URL}/oauth/token`, params, reqConf)
+            .then((res) => {
                 this.setToken(res.data.access_token);
-                return Promise.resolve(res);
-          }).catch((error)=>{
+            }).catch((error) => {
                 console.log("Error in API call ! ! ! ! !");
                 console.log(error);
-          });
-  }
+            });
+    }
 
-  handleClick = (e) =>{
-          console.log('Clicked ! ! ! ! ! ! ! !')
-          this.setState({
-                NewGame: true
-          })
-  }
+    handleClick = (e) => {
+        console.log('Clicked ! ! ! ! ! ! ! !')
+        this.setState({
+            NewGame: true
+        })
+    }
 
-  setToken = id_token => {
-          localStorage.setItem("id_token", id_token);
-  }
+    setToken = id_token => {
+        localStorage.setItem("id_token", id_token);
+    }
 
 
-  render(){
-          if(this.state.NewGame === false) {
-                return (
-                      <div>
-                          <div>
-                              <p>Ready ?</p>
-                              <img src={logo} className="App-logo" alt="logo" />
-                          </div>
-                          <Button size="medium" variant="contained" className="User-button" color="primary" onClick={this.handleClick}> Let's do it ! </Button>
-                      </div>
-                );
-          } else {
-                return(
-                      <Newgame />
-                );
-          }
-  }
+    render() {
+        if (this.state.NewGame === false) {
+            return (
+                <div>
+                    <div>
+                        <p>Ready ?</p>
+                        <img src={logo} className="App-logo" alt="logo" />
+                    </div>
+                    <Button size="medium" variant="contained" className="User-button" color="primary" onClick={this.handleClick}> Let's do it ! </Button>
+                </div>
+            );
+        } else {
+            return (
+                <Newgame />
+            );
+        }
+    }
 }
 
 // function mapStateToProps(state){
