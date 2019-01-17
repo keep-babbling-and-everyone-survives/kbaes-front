@@ -77,6 +77,15 @@ class Rules extends Component {
         const { anchorEl } = this.state;
         const openApp = Boolean(anchorEl);
         let rulesets = []
+
+        function shuffle(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
         if (this.state.gotdata) {
             for (let rs of this.state.rulesets) {
                 var colors = [
@@ -92,6 +101,8 @@ class Rules extends Component {
                         <span key={index} style={{ color: color, fontSize: 2 + 'em' }}>&#9679;</span>
                     )
                 }
+
+                leds = shuffle(leds);
 
                 rulesets.push(
                     <li key={rs.id} className="solution-li">
@@ -112,7 +123,7 @@ class Rules extends Component {
         return (
             <div>
                 <Tracker />
-                <ul>
+                <ul style={{display: "flex", width: "600px", flexWrap: "wrap"}}>
                     {rulesets}
                 </ul>
                 <div className="modal-solution"

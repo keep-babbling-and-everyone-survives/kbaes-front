@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import logo from '../raspberryred.svg';
 import Echo from 'laravel-echo';
 import Socketio from 'socket.io-client';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 
 //import component
@@ -17,6 +19,9 @@ class User extends Component {
         super(props);
         this.state = {
             NewGame: false,
+            modules: 5,
+            time: 60,
+            chances: 2
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -75,6 +80,15 @@ class User extends Component {
         localStorage.setItem("id_token", id_token);
     }
 
+    handleInputChange = (e) => {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
 
     render() {
         if (this.state.NewGame === false) {
@@ -85,11 +99,25 @@ class User extends Component {
                         <img src={logo} className="App-logo" alt="logo" />
                     </div>
                     <Button size="medium" variant="contained" className="User-button" color="primary" onClick={this.handleClick}> Let's do it ! </Button>
+                    <Grid container justify="center" style={{marginTop:"20px"}}>
+                        <Grid item xs={4}>
+                            <Typography variation="overline" style={{color: "white"}}>Temps:<br/> <input name="time" type="number" value={this.state.time} onChange={this.handleInputChange} style={{width: "80px"}}/></Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography variation="overline" style={{color: "white"}}>Chances:<br/> <input name="chances" type="number" value={this.state.chances} onChange={this.handleInputChange} style={{width: "80px"}}/></Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography variation="overline" style={{color: "white"}}>Modules:<br/> <input name="modules" type="number" value={this.state.modules} onChange={this.handleInputChange} style={{width: "80px"}}/></Typography>
+                        </Grid>
+                    </Grid>
                 </div>
             );
         } else {
             return (
-                <Newgame />
+                <Newgame 
+                modules={this.state.modules}
+                chances={this.state.chances}
+                time={this.state.time}/>
             );
         }
     }

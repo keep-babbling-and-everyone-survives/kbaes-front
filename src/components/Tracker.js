@@ -43,7 +43,7 @@ class Tracker extends Component {
                     Errors: res.data.errors,
                     Modules: res.data.modules,
                     Solved: res.data.solved,
-                    Chances: parseInt(res.data.modules),
+                    Chances: parseInt(res.data.chances),
                 })
             }).catch(error => {
                 console.log(error);
@@ -56,6 +56,7 @@ class Tracker extends Component {
         console.log(`Got update from game ${localStorage.game_id}`);
         const update = e.update;
         const game = e.game;
+
         if (!update.hasNext) {
             this.setState({
                 HasNext: false,
@@ -82,6 +83,7 @@ class Tracker extends Component {
         } else {
             remainingDisplay = <Typography component="h2" variant="h1" >{this.state.Modules - this.state.Solved}</Typography>
         }
+
         if (! this.state.HasNext) {
             if (this.state.Failed) {
                 return ( <div>

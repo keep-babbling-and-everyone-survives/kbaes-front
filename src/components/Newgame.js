@@ -22,9 +22,9 @@ class Newgame extends Component {
     componentDidMount() {
         const API_URL = Config.API_URL;
         const body = { "game_options": {
-            "time": 60,
-            "modules": 8,
-            "errors": 3,
+            "time": this.props.time,
+            "modules": this.props.modules,
+            "errors": this.props.chances,
         } };
         const reqConfig = { headers: { "Accept": "application/json", "Authorization": 'Bearer ' + localStorage.id_token } };
 
@@ -55,7 +55,6 @@ class Newgame extends Component {
     }
 
     confirmGame = e => {
-        console.log(e);
         console.log(`Got confirmation for game ${localStorage.game_id}`);
         this.setState({
             Rules: true
