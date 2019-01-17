@@ -23,8 +23,8 @@ class Newgame extends Component {
         const API_URL = Config.API_URL;
         const body = { "game_options": {
             "time": 60,
-            "modules": 3,
-            "errors": 1,
+            "modules": 8,
+            "errors": 3,
         } };
         const reqConfig = { headers: { "Accept": "application/json", "Authorization": 'Bearer ' + localStorage.id_token } };
 

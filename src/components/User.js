@@ -53,7 +53,7 @@ class User extends Component {
         window.Echo = new Echo({
             broadcaster: 'socket.io',
 
-            host: `${Config.API_URL}:${Config.SOCKETIO_PORT}`,
+            host: `${Config.SOCKETIO_URL}:${Config.SOCKETIO_PORT}`,
             client: Socketio,
             transports: ['websocket', 'polling', 'flashsocket'], //fix CORS issue
             auth: {
