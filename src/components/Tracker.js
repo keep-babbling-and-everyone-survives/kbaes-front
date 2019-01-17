@@ -16,6 +16,7 @@ class Tracker extends Component {
             Errors: 0,
             Solved: 0,
             Modules: 0,
+            Chances: 0,
             HasNext: true,
             Failed: false
         };
@@ -37,12 +38,12 @@ class Tracker extends Component {
     getGameStatus() {
         Axios.get(`${Config.API_URL}/api/game/${localStorage.game_id}`)
             .then(res => {
-                console.log(res);
                 this.setState({
                     GameQueried: true,
                     Errors: res.data.errors,
                     Modules: res.data.modules,
-                    Solved: res.data.solved
+                    Solved: res.data.solved,
+                    Chances: parseInt(res.data.modules),
                 })
             }).catch(error => {
                 console.log(error);
@@ -66,15 +67,6 @@ class Tracker extends Component {
             Errors: update.errors,
             Solved: update.solved
         });
-        console.log(this.state);
-        /*
-        answer: false
-        errors: 2
-        failed: false
-        hasNext: false
-        solved: 2
-        type: "answer"
-        */
     }
 
     render() {
@@ -82,7 +74,7 @@ class Tracker extends Component {
         if (!this.state.GameQueried) {
             errorsDisplay = <CircularProgress />;
         } else {
-            errorsDisplay = <Typography component="h2" variant="h1" >{this.state.Errors}</Typography>
+            errorsDisplay = <div style={{display:"flex", alignItems: 'baseline', justifyContent: 'center'}}><Typography component="h2" variant="h1" >{this.state.Errors}</Typography><Typography variant="overline">/{this.state.Chances}</Typography></div>
         }
         let remainingDisplay;
         if (!this.state.GameQueried) {
