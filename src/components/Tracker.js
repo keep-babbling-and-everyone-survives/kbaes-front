@@ -96,9 +96,19 @@ class Tracker extends Component {
             }
             // return Gagné/Perdu
         }
+
+        const cardStyle = {
+            width: "180px",
+            height: "220px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "0 10px"
+
+        }
         return (
-            <div>
-                <Card>
+            <div style={{display: "flex", justifyContent: "center"}}>
+                <Card style={cardStyle}>
                     <CardContent>
                         <Typography variant="overline">
                             Erreurs
@@ -106,7 +116,7 @@ class Tracker extends Component {
                         {errorsDisplay}
                     </CardContent>
                 </Card>
-                <Card>
+                <Card style={cardStyle}>
                     <CardContent>
                         <Typography variant="overline">
                             Restant

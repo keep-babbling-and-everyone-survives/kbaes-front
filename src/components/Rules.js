@@ -123,7 +123,7 @@ class Rules extends Component {
         return (
             <div>
                 <Tracker />
-                <ul style={{display: "flex", width: "600px", flexWrap: "wrap"}}>
+                <ul style={{display: "flex", width: "500px", justifyContent: "center", flexWrap: "wrap", paddingLeft: "0px"}}>
                     {rulesets}
                 </ul>
                 <div className="modal-solution"
